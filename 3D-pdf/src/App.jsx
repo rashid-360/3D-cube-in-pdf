@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-8">
-      <div className=" bg-black text-white p-8">
+      <div className=" bg-gray-800/50 text-white p-8">
   {/* Main Title */}
   <h1 className="text-6xl font-bold text-center mb-4 font-mono">
     WE CUBE
