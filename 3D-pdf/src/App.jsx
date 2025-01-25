@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import Template from "./components/Template"
 import { Github } from "lucide-react";
 function App() {
@@ -33,10 +33,29 @@ function App() {
     const snappedValue = Math.round(value)
     setter(Math.min(Math.max(1, snappedValue), max))
   }
+  useEffect(() => {
+    const isChromiumBrowser = () => {
+      const userAgent = navigator.userAgent;
+      const vendor = navigator.vendor;
+
+      // Check for "Chrome" in the user agent and "Google Inc." as the vendor
+      const isChromium = userAgent.includes("Chrome") && vendor === "Google Inc.";
+
+      // Exclude other Chromium-based browsers (like Brave or Edge) if needed
+      const isNotEdge = !userAgent.includes("Edg");
+      const isNotBrave = !navigator.brave;
+
+      return isChromium && isNotEdge && isNotBrave;
+    };
+
+    if (!isChromiumBrowser()) {
+      alert("Your browser is not Chromium-based.Please use Chromium based browser for best result ");
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-8">
-      <div className=" bg-gray-800/50 text-white p-8">
+      <div className=" bg-gray-800/50 text-white p-8 max-w-4xl mx-auto space-y-8">
   {/* Main Title */}
   <h1 className="text-6xl font-bold text-center mb-4 font-mono">
     WE CUBE
@@ -49,7 +68,7 @@ function App() {
 
   {/* Flex container for content and GitHub link */}
   <div className="flex justify-between items-center mt-12">
-    <div>see the result:<a href='/default.pdf' target='_blank'>example</a></div>
+    <div>see the result:<a href='/3D-cube-in-pdf/default.pdf' target='_blank'>example</a></div>
     <a
       href="https://github.com/rashid-360/3D-cube-in-pdf"
       target="_blank"
