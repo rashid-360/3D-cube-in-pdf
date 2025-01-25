@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import Template from "./components/Template"
-import { Github } from "lucide-react";
+import { Github } from "lucide-react"
 function App() {
   const [r, setR] = useState(0)
   const [g, setG] = useState(0)
@@ -15,6 +15,7 @@ function App() {
   const [isReversed, setIsReversed] = useState(false)
   const [diagonalDirection, setDiagonalDirection] = useState("right")
   const [cubesize, setCubesize] = useState(10)
+  const [inputWarning, setInputWarning] = useState("")
 
   const speedMarks = Array.from({ length: 10 }, (_, i) => i + 1)
   const sizeMarks = Array.from({ length: 20 }, (_, i) => i + 1)
@@ -24,8 +25,13 @@ function App() {
   const diagonal = diagonalDirection === "right" ? [250, 250] : [0, 250]
 
   const validateSideText = (text, setter) => {
-    if (text.length >= 2) {
-      setter(text)
+    setter(text) // Always update the text
+    if (text.length < 1) {
+      setInputWarning("Text must be at least 1 character")
+    } else if (text.length > 4) {
+      setInputWarning("Text cannot be longer than 4 characters")
+    } else {
+      setInputWarning("")
     }
   }
 
@@ -35,51 +41,54 @@ function App() {
   }
   useEffect(() => {
     const isChromiumBrowser = () => {
-      const userAgent = navigator.userAgent;
-      const vendor = navigator.vendor;
+      const userAgent = navigator.userAgent
+      const vendor = navigator.vendor
 
       // Check for "Chrome" in the user agent and "Google Inc." as the vendor
-      const isChromium = userAgent.includes("Chrome") && vendor === "Google Inc.";
+      const isChromium = userAgent.includes("Chrome") && vendor === "Google Inc."
 
       // Exclude other Chromium-based browsers (like Brave or Edge) if needed
-      const isNotEdge = !userAgent.includes("Edg");
-      const isNotBrave = !navigator.brave;
+      const isNotEdge = !userAgent.includes("Edg")
+      const isNotBrave = !navigator.brave
 
-      return isChromium && isNotEdge && isNotBrave;
-    };
+      return isChromium && isNotEdge && isNotBrave
+    }
 
     if (!isChromiumBrowser()) {
-      alert("Your browser is not Chromium-based.Please use Chromium based browser for best result ");
+      alert("Your browser is not Chromium-based.Please use Chromium based browser for best result ")
     }
-  }, []);
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-8">
       <div className=" bg-gray-800/50 text-white p-8 max-w-4xl mx-auto space-y-8">
-  {/* Main Title */}
-  <h1 className="text-6xl font-bold text-center mb-4 font-mono">
-    WE CUBE
-  </h1>
+        {/* Main Title */}
+        <h1 className="text-6xl font-bold text-center mb-4 font-mono">WE CUBE</h1>
 
-  {/* Subtitle centered under the title */}
-  <p className="text-gray-400 text-center mt-2">
-    [Create your 3D cube for PDFs - Best viewed in Chromium browsers  ]
-  </p>
+        {/* Subtitle centered under the title */}
+        <p className="text-gray-400 text-center mt-2">
+          [Create your 3D cube for PDFs - Best viewed in Chromium browsers ]
+        </p>
 
-  {/* Flex container for content and GitHub link */}
-  <div className="flex justify-between items-center mt-12">
-    <div>see the result:<a href='/3D-cube-in-pdf/default.pdf' target='_blank'>example</a></div>
-    <a
-      href="https://github.com/rashid-360/3D-cube-in-pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
-    >
-      <Github className="w-5 h-5" />
-      <span>View on GitHub</span>
-    </a>
-  </div>
-</div>
+        {/* Flex container for content and GitHub link */}
+        <div className="flex justify-between items-center mt-12">
+          <div>
+            see the result:
+            <a href="/3D-cube-in-pdf/default.pdf" target="_blank" rel="noreferrer">
+              example
+            </a>
+          </div>
+          <a
+            href="https://github.com/rashid-360/3D-cube-in-pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+          >
+            <Github className="w-5 h-5" />
+            <span>View on GitHub</span>
+          </a>
+        </div>
+      </div>
 
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Cube Sides */}
@@ -100,12 +109,12 @@ function App() {
                   type="text"
                   value={value}
                   onChange={(e) => validateSideText(e.target.value, setter)}
-                  minLength={2}
                   className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:border-blue-500 text-white"
-                  placeholder="Min 2 chars"
+                  placeholder="1-4 chars recommended"
                 />
               </div>
             ))}
+            {inputWarning && <div className="col-span-full text-red-400 text-sm mt-2">{inputWarning}</div>}
           </div>
         </div>
 
