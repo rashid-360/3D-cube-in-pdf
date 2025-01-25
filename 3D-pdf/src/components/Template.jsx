@@ -668,7 +668,7 @@ function autoSpin(points) {
     
     
     function spin() {
-        spinAngleX += ${Xrotationspeed}; // X-axis rotation speed
+        spinAngleX += ${Xrotationspeed}; //  rotation speed
         
         
         

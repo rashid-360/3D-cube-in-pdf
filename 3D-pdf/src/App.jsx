@@ -51,7 +51,7 @@ function App() {
   <div className="flex justify-between items-center mt-12">
     <div>see the result:<a href='/default.pdf' target='_blank'>example</a></div>
     <a
-      href="https://github.com/yourusername/we-cube"
+      href="https://github.com/rashid-360/3D-cube-in-pdf"
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
